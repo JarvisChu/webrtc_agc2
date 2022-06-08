@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -pthread -shared -Wl,-soname,libabsl_leak_check.so -o ../../../../../lib/libabsl_leak_check.so CMakeFiles/absl_leak_check.dir/leak_check.cc.o 

@@ -22,9 +22,16 @@ else()
   add_definitions(-DWEBRTC_POSIX)
 endif ()
 
-if (UNIX)
+# Linux
+if (UNIX AND NOT APPLE)
   add_definitions(-DWEBRTC_LINUX)
 endif ()
+
+# Mac
+if (UNIX AND APPLE)
+  add_definitions(-DWEBRTC_MAC)
+endif ()
+
 add_definitions(-DWEBRTC_NS_FLOAT)
 add_definitions(-DWEBRTC_APM_DEBUG_DUMP=1)
 
@@ -139,7 +146,21 @@ aux_source_directory(${WEBRTC_RTC_BASE_MEMORY_DIR} WEBRTC_RTC_BASE_MEMORY_DIR_SR
 aux_source_directory(${WEBRTC_RTC_BASE_STRINGS_DIR} WEBRTC_RTC_BASE_STRINGS_DIR_SRC)
 aux_source_directory(${WEBRTC_RTC_BASE_SYNCHRONIZATION_DIR} WEBRTC_RTC_BASE_SYNCHRONIZATION_DIR_SRC)
 aux_source_directory(${WEBRTC_RTC_BASE_SYSTEM_DIR} WEBRTC_RTC_BASE_SYSTEM_DIR_SRC)
-aux_source_directory(${WEBRTC_SYSTEM_WRAPPERS_DIR} WEBRTC_SYSTEM_WRAPPERS_DIR_SRC)
+
+# Linux
+if (UNIX AND NOT APPLE)
+  aux_source_directory(${WEBRTC_SYSTEM_WRAPPERS_DIR} WEBRTC_SYSTEM_WRAPPERS_DIR_SRC)
+else()
+  #not linux, exclude cpu_features_linux.cc
+  set(WEBRTC_SYSTEM_WRAPPERS_DIR_SRC 
+      ${WEBRTC_SYSTEM_WRAPPERS_DIR}/cpu_features.cc 
+      ${WEBRTC_SYSTEM_WRAPPERS_DIR}/cpu_info.cc
+      ${WEBRTC_SYSTEM_WRAPPERS_DIR}/field_trial.cc
+      ${WEBRTC_SYSTEM_WRAPPERS_DIR}/metrics.cc
+      ${WEBRTC_SYSTEM_WRAPPERS_DIR}/sleep.cc
+  )
+endif()
+
 aux_source_directory(${WEBRTC_THIRD_PARTY_RNNNOISE_DIR} WEBRTC_THIRD_PARTY_RNNNOISE_DIR_SRC)
 
 add_subdirectory(${CURRENT_DIR}/third_party/abseil-cpp)
