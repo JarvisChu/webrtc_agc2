@@ -41,7 +41,6 @@ set(CURRENT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(WEBRTC_API_DIR ${CURRENT_DIR}/api)
 set(WEBRTC_API_INCLUDE ${CURRENT_DIR}/api)
 set(WEBRTC_API_AUDIO_DIR ${CURRENT_DIR}/api/audio)
-set(WEBRTC_API_TASK_QUEUE_DIR ${CURRENT_DIR}/api/task_queue)
 
 # common_audio
 set(WEBRTC_COMMON_AUDIO_DIR ${CURRENT_DIR}/common_audio)
@@ -106,16 +105,6 @@ include_directories(
 )
 
 aux_source_directory(${WEBRTC_API_AUDIO_DIR} WEBRTC_API_AUDIO_DIR_SRC)
-
-set(WEBRTC_API_TASK_QUEUE_SRC ${CURRENT_DIR}/api/task_queue/task_queue_base.cc)
-if (WIN32)
-set(WEBRTC_API_DEFAULT_TASK_QUEUE_SRC ${CURRENT_DIR}/api/task_queue/default_task_queue_factory_win.cc)
-elseif (UNIX)
-set(WEBRTC_API_DEFAULT_TASK_QUEUE_SRC ${CURRENT_DIR}/api/task_queue/default_task_queue_factory_stdlib.cc)
-else ()
-set(WEBRTC_API_DEFAULT_TASK_QUEUE_SRC ${CURRENT_DIR}/api/task_queue/default_task_queue_factory_gcd.cc)
-endif()
-
 aux_source_directory(${WEBRTC_COMMON_AUDIO_DIR} WEBRTC_COMMON_AUDIO_DIR_SRC)
 aux_source_directory(${WEBRTC_COMMON_AUDIO_RESAMPLER_DIR} WEBRTC_COMMON_AUDIO_RESAMPLER_DIR_SRC)
 aux_source_directory(${WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_DIR} WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_DIR_SRC)
@@ -169,8 +158,6 @@ add_subdirectory(${CURRENT_DIR}/third_party/pffft/src)
 
 add_library(${PROJECT_NAME} STATIC
   ${WEBRTC_API_AUDIO_DIR_SRC}
-  ${WEBRTC_API_TASK_QUEUE_SRC}
-  ${WEBRTC_API_DEFAULT_TASK_QUEUE_SRC}
   ${WEBRTC_COMMON_AUDIO_DIR_SRC}
   ${WEBRTC_COMMON_AUDIO_RESAMPLER_DIR_SRC}
   ${WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_DIR_SRC}
