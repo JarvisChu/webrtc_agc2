@@ -7,7 +7,13 @@ so I share my agc2 demo, so that someone can give me some advice.
 
 ## Usage
 
-```
+```bash
+# download jsoncpp
+cd webrtc_agc2/webrtc/third_party/jsoncpp
+mkdir source
+git clone https://github.com/open-source-parsers/jsoncpp source
+
+# build
 mkdir build && cd build
 cmake ..
 ```
