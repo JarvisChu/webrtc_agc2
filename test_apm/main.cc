@@ -8,7 +8,8 @@
 #include "common_audio/wav_header.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/include/audio_util.h"
-#include "common_audio/test_utils.h"
+//#include "common_audio/test_utils.h"
+#include "modules/audio_processing/test/test_utils.h"
 
 using namespace std;
 using namespace webrtc;
@@ -45,12 +46,17 @@ void agc2(struct Agcinput* agc_input){
     agc2_config.fixed_digital.gain_db=5;
 
     std::unique_ptr<GainController2> gainController2;
-    gainController2.reset(new GainController2);
-    gainController2->Initialize(input_sample_rate_hz);
-    gainController2->ApplyConfig(agc2_config);
+    //gainController2.reset(new GainController2);
+    //gainController2->Initialize(input_sample_rate_hz);
+    //gainController2->ApplyConfig(agc2_config);
+    gainController2.reset(new GainController2(agc2_config, input_sample_rate_hz, input_num_channels));
+    gainController2->Initialize(input_sample_rate_hz, input_num_channels);
+    //gainController2->SetFixedGainDb(49);
     RTC_CHECK_EQ(gainController2->Validate(agc2_config), true);
     StreamConfig sc(input_sample_rate_hz,input_num_channels);
-    AudioBuffer ab(input_sample_rate_hz / kChunksPerSecond,input_num_channels,input_sample_rate_hz / kChunksPerSecond,input_num_channels,input_sample_rate_hz / kChunksPerSecond);
+    //AudioBuffer ab(input_sample_rate_hz / kChunksPerSecond,input_num_channels,input_sample_rate_hz / kChunksPerSecond,input_num_channels,input_sample_rate_hz / kChunksPerSecond);
+    AudioBuffer ab(input_sample_rate_hz, input_num_channels, input_sample_rate_hz, input_num_channels, input_sample_rate_hz, input_num_channels);
+
 
     bool samples_left_process = true;
     int count = 0;
@@ -60,7 +66,7 @@ void agc2(struct Agcinput* agc_input){
         if(input_sample_rate_hz > kSampleRate16kHz){
             ab.SplitIntoFrequencyBands();
         }
-        gainController2->NotifyAnalogLevel(5);
+        gainController2->NotifyAnalogLevel(10);
         gainController2->Process(&ab);
 
         if(input_sample_rate_hz > kSampleRate16kHz){
