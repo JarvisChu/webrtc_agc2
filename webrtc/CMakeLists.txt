@@ -18,6 +18,7 @@ endif()
 
 if (WIN32)
   add_definitions(-DWEBRTC_WIN)
+  add_definitions(-D_USE_MATH_DEFINES) # For pffft M_PI
 else()
   add_definitions(-DWEBRTC_POSIX)
 endif ()
