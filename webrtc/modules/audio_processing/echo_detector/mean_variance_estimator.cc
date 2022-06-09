@@ -10,12 +10,9 @@
 
 #include "modules/audio_processing/echo_detector/mean_variance_estimator.h"
 
-// #include <math.h>
-#include <cmath>
+#include <math.h>
 
 #include "rtc_base/checks.h"
-
-using std::isfinite;
 
 namespace webrtc {
 namespace {
