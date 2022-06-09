@@ -198,5 +198,9 @@ add_library(${PROJECT_NAME} STATIC
   ${WEBRTC_THIRD_PARTY_RNNNOISE_DIR_SRC}
 )
 
-#target_link_libraries(${PROJECT_NAME} absl::strings absl::optional absl::base jsoncpp_static pffft)
-target_link_libraries(${PROJECT_NAME} absl::strings absl::optional absl::base pffft)
+set(WEBRTC_LINK_LIBRARY_LIST absl::strings absl::optional absl::base pffft)
+if (WIN32)
+  set(WEBRTC_LINK_LIBRARY_LIST ${WEBRTC_LINK_LIBRARY_LIST} winmm.lib) # For timeGetTime()
+endif()
+
+target_link_libraries(${PROJECT_NAME} ${WEBRTC_LINK_LIBRARY_LIST})
