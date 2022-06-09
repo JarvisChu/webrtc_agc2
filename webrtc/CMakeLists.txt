@@ -156,7 +156,7 @@ endif()
 aux_source_directory(${WEBRTC_THIRD_PARTY_RNNNOISE_DIR} WEBRTC_THIRD_PARTY_RNNNOISE_DIR_SRC)
 
 add_subdirectory(${CURRENT_DIR}/third_party/abseil-cpp)
-add_subdirectory(${CURRENT_DIR}/third_party/jsoncpp/source)
+#add_subdirectory(${CURRENT_DIR}/third_party/jsoncpp/source)
 add_subdirectory(${CURRENT_DIR}/third_party/pffft/src)
 
 add_library(${PROJECT_NAME} STATIC
@@ -196,4 +196,5 @@ add_library(${PROJECT_NAME} STATIC
   ${WEBRTC_THIRD_PARTY_RNNNOISE_DIR_SRC}
 )
 
-target_link_libraries(${PROJECT_NAME} absl::strings absl::optional absl::base jsoncpp_static pffft)
+#target_link_libraries(${PROJECT_NAME} absl::strings absl::optional absl::base jsoncpp_static pffft)
+target_link_libraries(${PROJECT_NAME} absl::strings absl::optional absl::base pffft)
