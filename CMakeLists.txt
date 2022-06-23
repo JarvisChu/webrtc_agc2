@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(webrtc_apm_cmake)
+project(webrtc_agc2)
 
 set(CURRENT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
