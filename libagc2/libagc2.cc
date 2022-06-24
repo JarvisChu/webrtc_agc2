@@ -1,9 +1,9 @@
-#include "libagc2.h"
+﻿#include "libagc2.h"
 
 #include "modules/audio_processing/gain_controller2.h"
 #include "modules/audio_processing/audio_buffer.h"
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(LIB_AGC2_STATIC)
     #define EXPORT_API __declspec(dllexport)
 #else
     #define EXPORT_API

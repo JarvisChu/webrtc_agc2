@@ -30,6 +30,11 @@ endif ()
 include_directories(${CURRENT_DIR})
 aux_source_directory(${CURRENT_DIR} LIB_AGC2_SRCS)
 
+# build static library
+#add_definitions(-DLIB_AGC2_STATIC)
+#add_library(${PROJECT_NAME} STATIC ${LIB_AGC2_SRCS})
+
+#build shared library
 add_library(${PROJECT_NAME} SHARED ${LIB_AGC2_SRCS})
 
 target_link_libraries(${PROJECT_NAME} webrtc_apm)

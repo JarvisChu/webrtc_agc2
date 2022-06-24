@@ -24,6 +24,9 @@
 # build
 mkdir build && cd build
 cmake ..
+
+# if your need win32 project
+# cmake .. -A win32
 ```
 
 ## Problem

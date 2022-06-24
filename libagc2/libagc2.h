@@ -1,4 +1,4 @@
-#ifndef _LIB_AGC2_H_
+﻿#ifndef _LIB_AGC2_H_
 #define _LIB_AGC2_H_
 
 #include <stdint.h>
@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(LIB_AGC2_STATIC)
     #define AGC2_API __declspec(dllimport)
 #else
     #define AGC2_API
