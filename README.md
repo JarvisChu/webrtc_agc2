@@ -29,6 +29,14 @@ cmake ..
 # cmake .. -A win32
 ```
 
+**Important!**
+
+> If you want to run code in Celeron CPU machines,  you need to `SET arch for pffft`
+> pffft requires AVX2, but celeron may not support it, so you should change the arch for pffft
+
+> https://docs.microsoft.com/zh-cn/cpp/build/reference/arch-x86?view=msvc-170
+
+
 ## Problem
 demo for webrtc agc2
 
